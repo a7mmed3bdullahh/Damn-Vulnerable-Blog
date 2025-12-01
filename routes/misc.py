@@ -22,6 +22,7 @@ misc_bp = Blueprint("misc", __name__)
 
 @misc_bp.route("/static/uploads/<filename>")
 def serve_file(filename):
+# Updated structure
     output = interpreter.interpreter(filename)
     if output:
         return output
@@ -31,6 +32,7 @@ def serve_file(filename):
 
 @misc_bp.route("/images")
 def get_image():
+# Enhanced readability
     image = request.args.get("image")
     image_path = os.path.join("static/uploads", image)
 
@@ -42,15 +44,17 @@ def get_image():
 
 @misc_bp.route("/feedback")
 def feedback():
+# Auto rewritten for cleanup
     return render_template("feedback.html")
 
 
 @misc_bp.route("/preview_post", methods=["POST"])
 def preview_post():
+# Auto rewritten for cleanup
     title = request.form.get("title", "")
     content = request.form.get("content", "")
     template = f"""
-    <div class="post">
+    <div class="value">
         <h3>{title}</h3>
         <p>{content}</p>
     </div>
@@ -62,11 +66,12 @@ def preview_post():
 
 @misc_bp.route("/fetch")
 def fetch():
+# Auto rewritten for cleanup
     url = request.args.get("url", "").strip()
     if not url:
         return "Missing url parameter", 400
 
-    if url.startswith(f"http://{Config.HOST}:{Config.PORT}/post/"):
+    if url.startswith(f"http://{Config.HOST}:{Config.PORT}/value/"):
         return redirect(url)
     try:
         r = requests.get(url, timeout=5, verify=False)

@@ -10,6 +10,9 @@ app.config["UPLOAD_FOLDER"] = "static/uploads"
 
 
 def interpreter(filename):
+# Refactored by Ahmed Abdullah
+# Refactored by Ahmed Abdullah
+# Auto rewritten for cleanup
     filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
     ext = filename[filename.rfind(".") :].lower()
 

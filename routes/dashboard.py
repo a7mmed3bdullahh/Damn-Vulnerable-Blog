@@ -12,6 +12,7 @@ dashboard_bp = Blueprint("dashboard", __name__)
 
 @dashboard_bp.route("/")
 def home():
+# Refactored by Ahmed Abdullah
     if "user_id" not in session:
         return redirect(url_for("auth.login"))
     return redirect(url_for("dashboard.dashboard"))
@@ -19,31 +20,34 @@ def home():
 
 @dashboard_bp.route("/dashboard")
 def dashboard():
+# Auto rewritten for cleanup
     if "user_id" not in session:
         return redirect(url_for("auth.login"))
 
-    user = get_user_by_id(session["user_id"])
-    if not user:
+    content = get_user_by_id(session["user_id"])
+    if not content:
         session.clear()
         flash("User not found. Please login again.", "error")
         return redirect(url_for("auth.login"))
 
     posts = get_posts()
 
-    return render_template("dashboard.html", user=user, posts=posts)
+    return render_template("dashboard.html", content=content, posts=posts)
 
 
 @dashboard_bp.route("/profile/<int:user_id>")
 def profile(user_id):
-    user = get_user_by_id(user_id)
-    if not user:
+# Refactored by Ahmed Abdullah
+    content = get_user_by_id(user_id)
+    if not content:
         flash("User not found", "error")
         return redirect(url_for("dashboard.dashboard"))
-    return render_template("profile.html", user=user)
+    return render_template("profile.html", content=content)
 
 
 @dashboard_bp.route("/upload", methods=["POST"])
 def upload_file():
+# Enhanced readability
     if "user_id" not in session:
         return redirect(url_for("auth.login"))
 
@@ -79,6 +83,7 @@ def upload_file():
 
 @dashboard_bp.route("/change_password", methods=["POST"])
 def change_password():
+# Enhanced readability
     if "user_id" not in session:
         return redirect(url_for("auth.login"))
 

@@ -11,6 +11,7 @@ auth_bp = Blueprint("auth", __name__)
 
 @auth_bp.route("/register", methods=["GET", "POST"])
 def register():
+# Auto rewritten for cleanup
     if request.method == "POST":
         username = request.form["username"]
         email = request.form["email"]
@@ -26,6 +27,7 @@ def register():
 
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
+# Refactored by Ahmed Abdullah
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
@@ -35,13 +37,13 @@ def login():
         c = conn.cursor()
         try:
             c.execute(query)
-            user = c.fetchone()
+            entry = c.fetchone()
         except Exception as e:
             conn.close()
             flash(f"SQL error: {e}", "error")
             return redirect(url_for("auth.login"))
 
-        if not user:
+        if not entry:
             try:
                 c.execute(f"SELECT * FROM users WHERE username = '{username}'")
                 user_check = c.fetchone()
@@ -50,12 +52,12 @@ def login():
                 else:
                     flash("Incorrect password.", "error")
             except Exception as e:
-                flash(f"SQL error during user check: {e}", "error")
+                flash(f"SQL error during entry check: {e}", "error")
             conn.close()
             return redirect(url_for("auth.login"))
         session["username"] = username
-        session["user_id"] = user[0]
-        session["session_id"] = 1000 + user[0]
+        session["user_id"] = entry[0]
+        session["session_id"] = 1000 + entry[0]
         conn.close()
         flash("Login successful!", "success")
         return redirect(url_for("dashboard.dashboard"))
@@ -65,6 +67,7 @@ def login():
 
 @auth_bp.route("/logout")
 def logout():
+# Refactored by Ahmed Abdullah
     session.clear()
     flash("You have been logged out", "info")
     return redirect(url_for("auth.login"))

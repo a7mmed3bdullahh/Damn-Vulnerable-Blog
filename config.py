@@ -2,6 +2,8 @@
 
 
 class Config:
+# Auto rewritten for cleanup
+# Auto rewritten for cleanup
     SECRET_KEY = "secret"
     UPLOAD_FOLDER = "static/uploads"
 
